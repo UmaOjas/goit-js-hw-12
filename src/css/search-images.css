@@ -1,0 +1,146 @@
+.main-imput {
+    margin-top: 36px;
+}
+.search-input {
+    box-sizing: border-box;
+    width: 272px;
+    height: 40px;
+    padding-left: 16px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.16px;
+    margin-right: 8px;
+    /* border-radius: 8px; */
+}
+.search-btn {
+    box-sizing: border-box;
+    width: 91px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    background-color: #4E75FF;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.16px;
+    line-height: 24px;
+  }
+  .search-btn:hover {
+    background-color: #6C8CFF;
+  
+  }
+  .search-btn:disabled {
+    background-color: #CFCFCF;
+  }
+
+
+  .images {
+    box-sizing: border-box;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    /* width: 1128px; */
+    margin: auto;
+    margin-top: 32px;
+    margin-bottom: 32px;
+  }
+  .image-item {
+    border:  1px solid #808080;
+    height: 200px;
+    width: 360px;
+  }
+  .search-image {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  .image-table {
+    position: relative;
+    bottom: 58px;
+    background-color: #ffffff;
+    width: 360px;
+    height: 48px;
+    text-align: center;
+  }
+  .load-btn {
+    box-sizing: border-box;
+    margin: 0 auto;
+    width: 125px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    background-color: #4E75FF;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.16px;
+    line-height: 24px;
+  }
+  .hide {
+    display: none;
+  }
+  /* .loading {
+    margin-top: 24px;
+    text-align: center;
+  } */
+   .loader-container {
+    text-align: center;
+    margin-top: 75px;
+    display: none;
+   }
+
+  .loader {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    position: relative;
+    border: 2px solid #000;
+    box-sizing: border-box;
+    animation: rotation 2s linear infinite;
+  }
+  .loader::after,
+  .loader::before {
+    content: '';  
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border: 2px solid #4E75FF;
+    width: 38px;
+    height: 38px;
+    animation: rotationBack 1.5s linear infinite;
+    transform-origin: center center;
+  }
+  .loader::before {
+    width: 28px;
+    height: 28px;
+    border-color: #000;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+  
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  } 
+  @keyframes rotationBack {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+  
