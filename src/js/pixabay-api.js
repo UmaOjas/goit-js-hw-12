@@ -2,7 +2,7 @@
 import axios from "axios";
 // import {loadMoreBtnStatus} from "../main.js";
 // import {loadMoreBtn} from "../main.js";
-// import {renderSearchCollection} from "./render-functions.js";
+import {renderSearchCollection} from "./render-functions.js";
 
 
 const BASE_URL = "https://pixabay.com";
@@ -16,10 +16,13 @@ export const params = {
     image_type: "photo",
     orientation: "horizontal",
     safesearch: true,
+    page: 1,
+    per_page: 15,
 }
 
 export async function searchImagesByQuery(query) {
     try {
+        params.page = 1;
         const response = await axios.get(ENDPOINT, {params});
         return response.data;
     } catch(error) {
@@ -27,6 +30,17 @@ export async function searchImagesByQuery(query) {
     }
 }
 
+export async function fetchMoreImages() {
+    try{
+        console.log(params.page)
+        const response = await axios.get(ENDPOINT, {params});
+        params.page += 1;
+        return response.data;
+
+    }catch(error) {
+        console.log(error)
+    }
+}
 
 
 // export function searchImagesByQuery(query) {
