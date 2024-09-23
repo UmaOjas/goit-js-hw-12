@@ -14,6 +14,7 @@ export const listImages = document.querySelector(".images");
 const contLoader = document.querySelector(".loader-container");
 const loadMoreBtn = document.querySelector(".load-btn");
 loadMoreBtnStatus("hide");
+let heightScroll;
 
 
 form.addEventListener("submit", handleSuubmit);
@@ -77,6 +78,9 @@ async function handleSuubmit(e) {
 
         // відправляємо на відбудовування колекції
         renderSearchCollection(listImages, images.hits);
+        let elem = document.querySelector(".image-item");
+        let rect = elem.getBoundingClientRect();
+        heightScroll = rect.height * 2;
 
     
         // після відбудовування вимикаємо лоадер і вмикаємо кнопку "загрузити ще"
@@ -140,6 +144,10 @@ async function handleMoreImages() {
         const moreImages = await fetchMoreImages();
         params.page += 1;
         renderSearchCollection(listImages, moreImages.hits);
+        window.scrollBy({
+            top: heightScroll,
+            behavior: "smooth",
+          });
         contLoader.style.display = "none";
         // отримуємо кількість картинок усього
         const totalHits = moreImages.totalHits;
@@ -185,3 +193,4 @@ export function loadMoreBtnStatus(status) {
         loadMoreBtn.disabled = false;
     }
 }
+
