@@ -2,7 +2,7 @@
 import axios from "axios";
 // import {loadMoreBtnStatus} from "../main.js";
 // import {loadMoreBtn} from "../main.js";
-import {renderSearchCollection} from "./render-functions.js";
+// import {renderSearchCollection} from "./render-functions.js";
 
 
 const BASE_URL = "https://pixabay.com";
@@ -32,9 +32,7 @@ export async function searchImagesByQuery(query) {
 
 export async function fetchMoreImages() {
     try{
-        console.log(params.page)
         const response = await axios.get(ENDPOINT, {params});
-        params.page += 1;
         return response.data;
 
     }catch(error) {

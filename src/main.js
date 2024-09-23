@@ -46,9 +46,12 @@ async function handleSuubmit(e) {
     }
     // відправляємо запит
     try {
+        params.page = 1;
+
         const images = await searchImagesByQuery(params.q);
         // вмикаємо лоадер
         contLoader.style.display = "block";
+        params.page += 1;
         // якщо немає даних - помилка
         if(images.hits[0] === undefined) {
             contLoader.style.display = "none";
@@ -106,62 +109,68 @@ async function handleSuubmit(e) {
         } else {
             loadMoreBtnStatus("show");
             // переходимо на наступну сторінку
-            params.page += 1;
             // додаємо прослуховувача подій на кнопку загрузити ще
             loadMoreBtn.addEventListener("click", handleMoreImages)
-            // викликаємо прослуховувач подій
-            async function handleMoreImages() {
-                try {
-                contLoader.style.display = "block";
-                const moreImages = await fetchMoreImages();
-                renderSearchCollection(listImages, moreImages.hits);
-                contLoader.style.display = "none";
-                if(params.page > totalPages) {
-                    console.log(params.page)
-                    loadMoreBtnStatus("hide");
-                    iziToast.error({
-                        title: ' ',
-                        message: "We're sorry, but you've reached the end of search results.",
-                        // iconUrl: errorIcon,
-                        titleSize: '16px',
-                        titleLineHeight: '24px',
-                        messageColor: 'white',
-                        messageSize: '16px',
-                        messageLineHeight: '24px',
-                        backgroundColor: '#ef4040',
-                        iconColor: '#ffffff',
-                        titleColor: '#ffffff',
-                        messageColor: '#ffffff',
-                        close: false,
-                        position: 'topRight',
-                    })
-                    return;
-                }
-            }catch(error) {
-                console.log(error)
-            }
+        }   
+
+        // МОДАЛКА
+        listImages.addEventListener("click", handleClick);
+
+        function handleClick(e) {
+            e.preventDefault()
+            if (e.target.nodeName !== 'IMG') return;
+            const lightbox = new SimpleLightbox('.image-item a', { 
+                captionsData: "alt",
+            });
+            lightbox .refresh();
         }
+        form.reset();
+
+    } catch(error) {
+        console.log(error)
+        contLoader.style.display = "none";
     }
-
-    // МОДАЛКА
-    listImages.addEventListener("click", handleClick);
-
-    function handleClick(e) {
-        e.preventDefault()
-        if (e.target.nodeName !== 'IMG') return;
-        const lightbox = new SimpleLightbox('.image-item a', { 
-            captionsData: "alt",
-        });
-        lightbox .refresh();
-    }
-    form.reset();
-
-} catch(error) {
-    console.log(error)
-    contLoader.style.display = "none";
-}
 }
 
+// прослуховувач подій на кнопці загрузити ще
+async function handleMoreImages() {
+    try {
+        contLoader.style.display = "block";
+        loadMoreBtnStatus("disabled");
+        const moreImages = await fetchMoreImages();
+        params.page += 1;
+        renderSearchCollection(listImages, moreImages.hits);
+        contLoader.style.display = "none";
+        // отримуємо кількість картинок усього
+        const totalHits = moreImages.totalHits;
+        // рахуємо кількість сторінок з картинками
+        const totalPages = Math.ceil(totalHits / params.per_page)
+        if(params.page > totalPages) {
+            loadMoreBtnStatus("hide");
+            iziToast.error({
+                title: ' ',
+                message: "We're sorry, but you've reached the end of search results.",
+                // iconUrl: errorIcon,
+                titleSize: '16px',
+                titleLineHeight: '24px',
+                messageColor: 'white',
+                messageSize: '16px',
+                messageLineHeight: '24px',
+                backgroundColor: '#ef4040',
+                iconColor: '#ffffff',
+                titleColor: '#ffffff',
+                messageColor: '#ffffff',
+                close: false,
+                position: 'topRight',
+            })
+            return;
+        } else {
+            loadMoreBtnStatus();
+        }
+    }catch(error) {
+        console.log(error)
+    }
+}
 
 
 // -----------------------------
