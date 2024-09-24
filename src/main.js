@@ -88,7 +88,6 @@ async function handleSuubmit(e) {
         contLoader.style.display = "none";
         // отримуємо кількість картинок усього
         const totalHits = images.totalHits;
-        console.log(totalHits)
         // рахуємо кількість сторінок з картинками
         const totalPages = Math.ceil(totalHits / params.per_page)
         // якщо кількості сторінок не менше, ніж номер поточної сторінки - кнопку ховаємо, 
