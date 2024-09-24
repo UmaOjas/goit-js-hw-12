@@ -13,13 +13,14 @@ const form = document.querySelector(".form");
 export const listImages = document.querySelector(".images");
 const contLoader = document.querySelector(".loader-container");
 const loadMoreBtn = document.querySelector(".load-btn");
-loadMoreBtnStatus("hide");
+// loadMoreBtnStatus("hide");
 let heightScroll;
 
 
 form.addEventListener("submit", handleSuubmit);
 
 async function handleSuubmit(e) {
+    loadMoreBtnStatus("hide");
     e.preventDefault();
     // очищуємо
     listImages.innerHTML = " ";
@@ -87,11 +88,12 @@ async function handleSuubmit(e) {
         contLoader.style.display = "none";
         // отримуємо кількість картинок усього
         const totalHits = images.totalHits;
+        console.log(totalHits)
         // рахуємо кількість сторінок з картинками
         const totalPages = Math.ceil(totalHits / params.per_page)
         // якщо кількості сторінок не менше, ніж номер поточної сторінки - кнопку ховаємо, 
         // якщо більше - вмикаємо і додаємо слухача подій
-        if(params.page >= totalPages) {
+        if(params.page > totalPages) {
             loadMoreBtnStatus("hide");
             iziToast.error({
                 title: ' ',
@@ -193,4 +195,5 @@ export function loadMoreBtnStatus(status) {
         loadMoreBtn.disabled = false;
     }
 }
+
 
