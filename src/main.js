@@ -133,7 +133,21 @@ async function handleSuubmit(e) {
         form.reset();
 
     } catch(error) {
-        console.log(error)
+        iziToast.error({
+            title: ' ',
+            message: `${error.name}`,
+            titleSize: '16px',
+            titleLineHeight: '24px',
+            messageColor: 'white',
+            messageSize: '16px',
+            messageLineHeight: '24px',
+            backgroundColor: '#ef4040',
+            iconColor: '#ffffff',
+            titleColor: '#ffffff',
+            messageColor: '#ffffff',
+            close: false,
+            position: 'topRight',
+        })
         contLoader.style.display = "none";
     }
 }
@@ -178,7 +192,21 @@ async function handleMoreImages() {
             loadMoreBtnStatus();
         }
     }catch(error) {
-        console.log(error)
+        iziToast.error({
+            title: ' ',
+            message: `${error.name}`,
+            titleSize: '16px',
+            titleLineHeight: '24px',
+            messageColor: 'white',
+            messageSize: '16px',
+            messageLineHeight: '24px',
+            backgroundColor: '#ef4040',
+            iconColor: '#ffffff',
+            titleColor: '#ffffff',
+            messageColor: '#ffffff',
+            close: false,
+            position: 'topRight',
+        })
     }
 }
 
